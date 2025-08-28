@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 public class Main
 {
     public static void fizzBuzzBang(){
@@ -56,10 +58,77 @@ public class Main
         }
     }
     
+    public static void wordCounter(String input) {
+    	
+    	//Write a method that takes a string of text and counts how many times each word appears.
+    	
+    	//Lowercase everything and get rid of punctuation.
+    	String text = input.toLowerCase().replaceAll("[^a-z ]", "");
+    	
+    	//Put words into an array.
+    	String[] words = text.split("\\s+");
+    	
+    	//Initialize hashmap
+    	HashMap<String,Integer> counts = new HashMap<>();
+    	
+    	//Start looping through words
+    	for(int i = 0; i < words.length; i++) {
+    		if (words[i].isEmpty()) continue; // skip blanks
+            if (counts.containsKey(words[i])) {
+                counts.put(words[i], counts.get(words[i]) + 1);
+            } else {
+                counts.put(words[i], 1);
+            }
+    	}
+    	
+    	//Now give it to me straight doc
+    	for (String word : counts.keySet()) {
+            System.out.println(word + " -> " + counts.get(word));
+        }
+    }
+    
+    public static void squareMatrixDiagSum(int[][] matrix) {
+    	int counter = 0;
+    	boolean flag = true;
+    	//to make sure the matrix is square, each row must contain the same length as the columns
+    	while(true) {
+    		if (counter == matrix.length){
+    			break;
+    		} else if(matrix[counter].length != matrix.length) {
+    			flag = false;
+    			break;
+    		}
+    		counter++;
+    	}
+    	
+    	if(!flag) {
+    		System.out.println("Matrix not square");
+    		return;
+    	}
+    	
+    	int sum = 0, j;
+    	for(int i = 0; i < matrix.length; i++) {
+    		j = matrix.length - (i + 1);
+    		if(i != j) {
+    			sum += matrix[i][i] + matrix[i][j];
+    		} else {
+    			sum += matrix[i][i];
+    		}
+    	}
+    	System.out.println(sum);
+    }
+    
 	public static void main(String[] args) {
-		fizzBuzzBang();
-		System.out.println(isPalindrome("Race car"));
-		int[] testList = {10, 4, 7, 10, 8};
-		System.out.println(secondLargest(testList));
+		//fizzBuzzBang();
+		//System.out.println(isPalindrome("Race car"));
+		//int[] testList = {10, 4, 7, 10, 8};
+		//System.out.println(secondLargest(testList));
+    	//wordCounter("Hello, hello world! This is a world of code. Hello again.");
+		int[][] test = {
+			{1,2,3},
+			{4,5,6},
+			{7,8,9}
+		};
+		squareMatrixDiagSum(test);
 	}
 }
